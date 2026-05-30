@@ -12,8 +12,22 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-const app: FirebaseApp = getApps().length ? getApp() : initializeApp(firebaseConfig);
+const isClient = typeof window !== "undefined";
+const missingConfigKeys = Object.entries(firebaseConfig)
+  .filter(([, value]) => !value)
+  .map(([key]) => key);
+const hasFirebaseConfig = missingConfigKeys.length === 0;
 
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
+const getFirebaseApp = (): FirebaseApp => {
+  if (!isClient || !hasFirebaseConfig) {
+    throw new Error(
+      `Firebase configuration incomplete. Missing: ${missingConfigKeys.join(", ")}. See .env.example.`,
+    );
+  }
+
+  return getApps().length ? getApp() : initializeApp(firebaseConfig);
+};
+
+export const getFirebaseAuth = () => getAuth(getFirebaseApp());
+export const getFirebaseDB = () => getFirestore(getFirebaseApp());
+export const getFirebaseStorage = () => getStorage(getFirebaseApp());

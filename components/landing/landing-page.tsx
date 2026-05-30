@@ -19,11 +19,13 @@ const featureCards = [
 ];
 
 const demoOutput = ["UI", "Backend", "Database", "Folder Structure"];
+const yearlyPriceMultiplier = 10;
+const yearlyDiscountRate = 0.8;
+const typingSource = "Describe your product idea and generate a full-stack blueprint in seconds.";
 
 export function LandingPage() {
   const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");
   const [typedText, setTypedText] = useState("");
-  const typingSource = "Describe your product idea and generate a full-stack blueprint in seconds.";
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -166,7 +168,9 @@ export function LandingPage() {
               >
                 <p className="text-xl font-semibold">{plan.name}</p>
                 <p className="mt-2 text-3xl font-bold">
-                  {plan.price}
+                  {billing === "monthly"
+                    ? plan.price
+                    : `$${Math.round(Number(plan.price.slice(1)) * yearlyPriceMultiplier * yearlyDiscountRate)}`}
                   <span className="text-base font-normal text-slate-400">/{billing === "monthly" ? "mo" : "yr"}</span>
                 </p>
                 <ul className="mt-4 space-y-2 text-sm text-slate-300">

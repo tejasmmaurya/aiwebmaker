@@ -41,6 +41,19 @@ export function AuthForm({ mode }: AuthFormProps) {
     }
   };
 
+  const handleGoogleLogin = async () => {
+    try {
+      setLoading(true);
+      setMessage("");
+      await loginWithGoogle();
+      setMessage("Logged in with Google.");
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Google authentication failed.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
       <h1 className="text-2xl font-semibold text-white">
@@ -74,7 +87,12 @@ export function AuthForm({ mode }: AuthFormProps) {
       </form>
 
       {mode !== "forgot" && (
-        <button onClick={() => void loginWithGoogle()} className="mt-3 w-full rounded-xl border border-white/20 px-4 py-3 text-sm" type="button">
+        <button
+          onClick={handleGoogleLogin}
+          className="mt-3 w-full rounded-xl border border-white/20 px-4 py-3 text-sm disabled:cursor-not-allowed disabled:opacity-60"
+          type="button"
+          disabled={loading}
+        >
           Continue with Google
         </button>
       )}

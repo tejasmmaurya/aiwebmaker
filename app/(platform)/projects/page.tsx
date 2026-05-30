@@ -26,24 +26,46 @@ export default function ProjectsPage() {
       </div>
 
       <form onSubmit={createProject} className="grid gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-6 lg:grid-cols-2">
-        <input className="rounded-xl border border-white/10 bg-black/40 px-3 py-2" name="projectName" placeholder="Project Name" required />
-        <input className="rounded-xl border border-white/10 bg-black/40 px-3 py-2" name="description" placeholder="Description" required />
-        <input className="rounded-xl border border-white/10 bg-black/40 px-3 py-2" name="techStack" placeholder="Tech Stack" required />
-        <select className="rounded-xl border border-white/10 bg-black/40 px-3 py-2" name="framework">
+        <label className="space-y-2 text-sm">
+          <span className="text-slate-300">Project Name</span>
+          <input className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2" id="projectName" name="projectName" required />
+        </label>
+        <label className="space-y-2 text-sm">
+          <span className="text-slate-300">Description</span>
+          <input className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2" id="description" name="description" required />
+        </label>
+        <label className="space-y-2 text-sm">
+          <span className="text-slate-300">Tech Stack</span>
+          <input className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2" id="techStack" name="techStack" required />
+        </label>
+        <label className="space-y-2 text-sm">
+          <span className="text-slate-300">Framework</span>
+          <select className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2" id="framework" name="framework">
           {options.framework.map((item) => (
             <option key={item}>{item}</option>
           ))}
-        </select>
-        <select className="rounded-xl border border-white/10 bg-black/40 px-3 py-2" name="database">
+          </select>
+        </label>
+        <label className="space-y-2 text-sm">
+          <span className="text-slate-300">Database</span>
+          <select className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2" id="database" name="database">
           {options.database.map((item) => (
             <option key={item}>{item}</option>
           ))}
-        </select>
-        <select className="rounded-xl border border-white/10 bg-black/40 px-3 py-2" name="deploymentTarget">
+          </select>
+        </label>
+        <label className="space-y-2 text-sm">
+          <span className="text-slate-300">Deployment Target</span>
+          <select
+            className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2"
+            id="deploymentTarget"
+            name="deploymentTarget"
+          >
           {options.deploymentTarget.map((item) => (
             <option key={item}>{item}</option>
           ))}
-        </select>
+          </select>
+        </label>
         <button className="rounded-xl bg-cyan-400 px-4 py-2 font-semibold text-black lg:col-span-2" type="submit">
           Create Project
         </button>

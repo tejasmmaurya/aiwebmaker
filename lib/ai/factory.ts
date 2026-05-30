@@ -13,6 +13,7 @@ export const getAIProvider = (provider: AIProviderName): AIProvider => {
     case "anthropic":
       return new AnthropicProvider();
     default:
+      console.warn(`Unknown provider "${provider}", defaulting to OpenAI`);
       return new OpenAIProvider();
   }
 };

@@ -19,7 +19,8 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ data: response });
-  } catch {
+  } catch (error) {
+    console.error("AI generation failed:", error instanceof Error ? error.message : "unknown error");
     return NextResponse.json({ error: "Failed to generate blueprint" }, { status: 500 });
   }
 }

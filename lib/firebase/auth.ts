@@ -7,20 +7,21 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { auth } from "@/lib/firebase/config";
+import { getFirebaseAuth } from "@/lib/firebase/config";
 
 const googleProvider = new GoogleAuthProvider();
 
 export const signUpWithEmail = async (email: string, password: string) => {
+  const auth = getFirebaseAuth();
   const cred = await createUserWithEmailAndPassword(auth, email, password);
   await sendEmailVerification(cred.user);
   return cred;
 };
 
-export const loginWithEmail = (email: string, password: string) => signInWithEmailAndPassword(auth, email, password);
+export const loginWithEmail = (email: string, password: string) => signInWithEmailAndPassword(getFirebaseAuth(), email, password);
 
-export const loginWithGoogle = () => signInWithPopup(auth, googleProvider);
+export const loginWithGoogle = () => signInWithPopup(getFirebaseAuth(), googleProvider);
 
-export const requestPasswordReset = (email: string) => sendPasswordResetEmail(auth, email);
+export const requestPasswordReset = (email: string) => sendPasswordResetEmail(getFirebaseAuth(), email);
 
-export const logout = () => signOut(auth);
+export const logout = () => signOut(getFirebaseAuth());
