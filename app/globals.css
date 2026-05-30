@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(34, 211, 238, 0.45) rgba(15, 23, 42, 0.3);
+}
+
+body {
+  background: radial-gradient(circle at 20% 0%, #0e172e 0%, #06070d 40%, #04050a 100%);
+}
